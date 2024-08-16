@@ -59,7 +59,7 @@
 				headers: [],
 				rawData: [],
 				filteredData: [],
-				startDate: '1970-01-01', // Start Date 디폴트 값 설정
+				startDate: '2017-01-01', // Start Date 디폴트 값 설정
 				endDate: new Date().toISOString().substr(0, 10), // End Date 디폴트 값 설정
 				selectedColumns: ['movieNm', 'openDt', 'audiAcc', 'showRange'],
 				isSearched: false // 검색 여부를 나타내는 상태 추가
@@ -92,7 +92,7 @@
 				this.filteredData = this.getFilteredData();
 			},
 			resetData() {
-				this.startDate = '1970-01-01';
+				this.startDate = '2017-01-01';
 				this.endDate = new Date().toISOString().substr(0, 10);
 				this.filteredData = this.rawData;
 				this.isSearched = false; // 초기화 시 검색 상태도 초기화
