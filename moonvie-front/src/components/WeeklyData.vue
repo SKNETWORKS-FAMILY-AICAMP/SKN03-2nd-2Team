@@ -52,14 +52,15 @@
 
 <script>
 	import csvData from '@/components/WeeklyBoxOffice/0_WeeklyBoxOfficeData.csv';
+
 	export default {
 		data() {
 			return {
 				headers: [],
 				rawData: [],
 				filteredData: [],
-				startDate: '',
-				endDate: '',
+				startDate: '1970-01-01', // Start Date 디폴트 값 설정
+				endDate: new Date().toISOString().substr(0, 10), // End Date 디폴트 값 설정
 				selectedColumns: ['movieNm', 'openDt', 'audiAcc', 'showRange'],
 				isSearched: false // 검색 여부를 나타내는 상태 추가
 			};
@@ -69,7 +70,7 @@
 		},
 		computed: {
 			sortedFilteredData() {
-				return this.filteredData.slice().sort((a, b) => b.audiAcc - a.audiAcc);
+				return this.getSortedFilteredData();
 			}
 		},
 		methods: {
@@ -87,40 +88,130 @@
 				}
 			},
 			filterData() {
+				this.isSearched = true;
+				this.filteredData = this.getFilteredData();
+			},
+			resetData() {
+				this.startDate = '1970-01-01';
+				this.endDate = new Date().toISOString().substr(0, 10);
+				this.filteredData = this.rawData;
+				this.isSearched = false; // 초기화 시 검색 상태도 초기화
+			},
+			getFilteredData() {
 				let filtered = this.rawData;
 
 				// 1. 기간에 맞춰 데이터 필터링
 				if (this.startDate && this.endDate) {
+					const startDate = new Date(this.startDate);
+					const endDate = new Date(this.endDate);
 					filtered = filtered.filter(row => {
 						const openDate = new Date(row.openDt);
-						const startDate = new Date(this.startDate);
-						const endDate = new Date(this.endDate);
 						return openDate >= startDate && openDate <= endDate;
 					});
 				}
 
 				// 2. MovieNm을 기준으로 오름차순 정렬하고, 중복된 MovieNm 중 audiAcc가 더 큰 항목만 남기기
-				filtered.sort((a, b) => a.movieNm.localeCompare(b.movieNm));
-				const uniqueMovies = {};
-				filtered.forEach(row => {
-					const movieName = row.movieNm;
-					if (!uniqueMovies[movieName] || row.audiAcc > uniqueMovies[movieName].audiAcc) {
-						uniqueMovies[movieName] = row;
-					}
-				});
+				const uniqueMovies = filtered
+					.sort((a, b) => a.movieNm.localeCompare(b.movieNm))
+					.reduce((acc, row) => {
+						if (!acc[row.movieNm] || row.audiAcc > acc[row.movieNm].audiAcc) {
+							acc[row.movieNm] = row;
+						}
+						return acc;
+					}, {});
 
 				// 3. MovieNm 기준으로 정렬된 데이터를 audiAcc 기준으로 내림차순 정렬
-				this.filteredData = Object.values(uniqueMovies).sort((a, b) => b.audiAcc - a.audiAcc);
-
-				// 검색이 수행되었음을 표시
-				this.isSearched = true;
+				return Object.values(uniqueMovies).sort((a, b) => b.audiAcc - a.audiAcc);
 			},
-			resetData() {
-				this.startDate = '';
-				this.endDate = '';
-				this.filteredData = this.rawData;
-				this.isSearched = false; // 초기화 시 검색 상태도 초기화
+			getSortedFilteredData() {
+				return this.filteredData.sort((a, b) => b.audiAcc - a.audiAcc);
 			}
 		}
 	};
 </script>
+
+<style scoped>
+.container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: Arial, sans-serif;
+}
+
+h1 {
+	text-align: center;
+	color: #333;
+}
+
+.date-filters {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.date-filters label {
+	margin-right: 10px;
+}
+
+.date-filters input {
+	margin-right: 20px;
+}
+
+.column-selection {
+	margin-bottom: 20px;
+}
+
+.checkbox-container {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.styled-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 25px 0;
+	font-size: 18px;
+	text-align: left;
+}
+
+.styled-table th, .styled-table td {
+	padding: 12px 15px;
+}
+
+.styled-table thead tr {
+	background-color: #009879;
+	color: #ffffff;
+	text-align: left;
+}
+
+.styled-table tbody tr {
+	border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+	border-bottom: 2px solid #009879;
+}
+
+.dropdown-menu-grid {
+	width: 100%; /* 드롭다운 메뉴를 화면 너비에 맞게 조정 */
+}
+
+.dropdown-menu-grid .row {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.dropdown-menu-grid .col-6 {
+	flex: 0 0 50%;
+	max-width: 50%;
+}
+
+.dropdown-menu-grid .col-md-4 {
+	flex: 0 0 33.3333%;
+	max-width: 33.3333%;
+}
+</style>
