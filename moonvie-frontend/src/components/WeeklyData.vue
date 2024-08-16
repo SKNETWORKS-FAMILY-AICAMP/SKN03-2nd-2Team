@@ -78,12 +78,28 @@ const headers = Object.keys(weeklyData[0])
 
 const filterDataByDate = () => {
   isSearched.value = true
-  filteredData.value = weeklyData.filter((item) => {
+  const filtered = weeklyData.filter((item) => {
     const itemDate = new Date(item.openDt)
     const start = new Date(startDate.value)
     const end = new Date(endDate.value)
     return itemDate >= start && itemDate <= end
   })
+
+  // 중복된 movieNm 제거 및 audiAcc가 높은 순으로 정렬
+  const uniqueData = filtered
+    .reduce((acc, current) => {
+      const x = acc.find((item) => item.movieNm === current.movieNm)
+      if (!x) {
+        return acc.concat([current])
+      } else if (x.audiAcc < current.audiAcc) {
+        return acc.map((item) => (item.movieNm === current.movieNm ? current : item))
+      } else {
+        return acc
+      }
+    }, [])
+    .sort((a, b) => b.audiAcc - a.audiAcc)
+
+  filteredData.value = uniqueData
 }
 
 const resetData = () => {
