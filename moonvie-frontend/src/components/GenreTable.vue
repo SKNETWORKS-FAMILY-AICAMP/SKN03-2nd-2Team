@@ -13,8 +13,8 @@
         Select Columns
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li v-for="(header, index) in headers" :key="index" class="dropdown-item">
-          <label class="form-check-label">
+        <li v-for="(header, index) in headers" :key="index" class="dropdown-item p-0">
+          <label class="form-check-label w-100 p-2">
             <input
               type="checkbox"
               :value="header"
@@ -62,7 +62,29 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, computed } from 'vue'
+import movieData from '@/assets/data/movies_2021_pages_1_to_20.json'
+
+const headers = ref(Object.keys(movieData[0]))
+const selectedColumns = ref(['영화명(국문)', '대표 장르'])
+const data = ref(movieData)
+const selectedGenre = ref(null)
+
+const uniqueGenres = computed(() => {
+  const genres = data.value.map((movie) => movie['대표 장르'])
+  return [...new Set(genres)]
+})
+
+const filteredData = computed(() => {
+  if (!selectedGenre.value) return data.value
+  return data.value.filter((movie) => movie['대표 장르'] === selectedGenre.value)
+})
+
+const filterByGenre = (genre) => {
+  selectedGenre.value = genre
+}
+</script>
 
 <style scoped>
 .container {
@@ -110,5 +132,11 @@ h1 {
 
 .table tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
+}
+
+.form-check-label {
+  display: block;
+  width: 100%;
+  padding: 8px 15px;
 }
 </style>
