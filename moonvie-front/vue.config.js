@@ -1,13 +1,29 @@
-const { defineConfig } = require('@vue/cli-service');
-
+const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
-  chainWebpack: config => {
-    config.module
-      .rule('csv')
-      .test(/\.csv$/)
-      .use('csv-loader')
-      .loader('csv-loader')
-      .end();
-  }
 });
+
+const path = require("path");
+
+module.exports = {
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
+    },
+    module: {
+      rules: [
+        {
+          test: /\.csv$/,
+          loader: "csv-loader",
+          options: {
+            dynamicTyping: true,
+            header: true,
+            skipEmptyLines: true,
+          },
+        },
+      ],
+    },
+  },
+};

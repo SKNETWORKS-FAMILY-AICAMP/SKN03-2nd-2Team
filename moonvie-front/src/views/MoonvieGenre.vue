@@ -1,18 +1,17 @@
 <template>
   <div>
-    <MovieList />
-    <MoonvieFooter />
+    <GenreTable />
   </div>
 </template>
 
 <script>
-import MovieList from '../components/MovieList';
+import GenreTable from "@/components/GenreTable.vue";
 
 export default {
-  name: 'MoonvieMonth',
+  name: "MoonvieGenre",
   components: {
-    MovieList
-  }
+    GenreTable,
+  },
 };
 </script>
 
