@@ -13,7 +13,7 @@
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
-        <button @click="filterData" class="btn btn-primary w-100">검색</button>
+        <button @click="filterDataByDate" class="btn btn-primary w-100">검색</button>
       </div>
       <div class="col-md-6">
         <button @click="resetData" class="btn btn-secondary w-100">초기화</button>
@@ -55,26 +55,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in sortedFilteredData" :key="row.id">
+        <tr v-for="row in filteredData" :key="row.id">
           <td v-for="header in selectedColumns" :key="header">{{ row[header] }}</td>
         </tr>
       </tbody>
     </table>
-    <div class="mt-5">
-      <h1 class="text-center">Weekly Data</h1>
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th v-for="header in defaultColumns" :key="header">{{ header }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in weeklyData" :key="index">
-            <td v-for="header in defaultColumns" :key="header">{{ item[header] }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </template>
 
@@ -85,9 +70,29 @@ import weeklyData from '@/assets/data/WeeklyData_0.json'
 const startDate = ref('2017-01-01')
 const endDate = ref(new Date().toISOString().split('T')[0]) // 오늘의 날짜를 기본값으로 설정
 const selectedColumns = ref(['movieNm', 'openDt', 'audiAcc', 'showRange'])
+const isSearched = ref(false)
 
 const headers = Object.keys(weeklyData[0])
-const defaultColumns = ['movieNm', 'openDt', 'audiAcc', 'showRange']
+
+const filterDataByDate = () => {
+  isSearched.value = true
+  filteredData.value = weeklyData.filter((item) => {
+    const itemDate = new Date(item.openDt)
+    const start = new Date(startDate.value)
+    const end = new Date(endDate.value)
+    return itemDate >= start && itemDate <= end
+  })
+}
+
+const resetData = () => {
+  startDate.value = '2017-01-01'
+  endDate.value = new Date().toISOString().split('T')[0]
+  selectedColumns.value = ['movieNm', 'openDt', 'audiAcc', 'showRange']
+  isSearched.value = false
+  filteredData.value = weeklyData
+}
+
+const filteredData = ref(weeklyData)
 </script>
 
 <style scoped>
