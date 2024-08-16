@@ -1,20 +1,16 @@
 <template>
   <div id="app">
-    <MoonvieHeader />
-    <router-view></router-view>
-    <MoonvieFooter />
+    <mainLayout />
   </div>
 </template>
 
 <script>
-import MoonvieHeader from './components/MoonvieHeader.vue';
-import MoonvieFooter from './components/MoonvieFooter.vue';
+import MainLayout from './components/Layout/MainLayout.vue';
 
 export default {
   name: 'App',
   components: {
-    MoonvieHeader,
-    MoonvieFooter,
+    MainLayout
   }
 };
 </script>
