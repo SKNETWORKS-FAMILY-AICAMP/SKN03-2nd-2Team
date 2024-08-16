@@ -31,7 +31,7 @@ def request_api(current_page):
 @ray.remote
 def process_get_movie(movie):
     movie_info = {
-        "영화 코드": movie.get("movieCd", "정보 없음"),
+        "영화코드": movie.get("movieCd", "정보 없음"),
         "영화명(국문)": movie.get("movieNm", "정보 없음"),
         "영화명(영문)": movie.get("movieNmEn", "정보 없음"),
         "제작연도": movie.get("prdtYear", "정보 없음"),
@@ -40,8 +40,8 @@ def process_get_movie(movie):
         "제작상태": movie.get("prdtStatNm", "정보 없음"),
         "제작국가": movie.get("nationAlt", "정보 없음"),
         "영화장르": movie.get("genreAlt", "정보 없음"),
-        "대표 제작국가": movie.get("repNationNm", "정보 없음"),
-        "대표 장르": movie.get("repGenreNm", "정보 없음"),
+        "대표제작국가": movie.get("repNationNm", "정보 없음"),
+        "대표장르": movie.get("repGenreNm", "정보 없음"),
         # 감독 정보 추출
         "영화 감독 이름": ",".join(
             [
@@ -53,6 +53,13 @@ def process_get_movie(movie):
         "제작사 코드": ",".join(
             [
                 company.get("companyCd", "정보 없음")
+                for company in movie.get("companys", [])
+            ]
+        ),
+        # 제작사 정보 추출
+        "제작사 명": ",".join(
+            [
+                company.get("companyNm", "정보 없음")
                 for company in movie.get("companys", [])
             ]
         ),
@@ -106,6 +113,7 @@ def save_movies2csv(movies):
     csv_name = (
         f"movies_{Parameters.OPEN_START_DT.value}_{Parameters.OPEN_END_DT.value}.csv"
     )
+
     movies_df.to_csv(csv_name, index=False, encoding="utf-8-sig")
     print(f"데이터가 '{csv_name}'로 저장되었습니다.")
 
