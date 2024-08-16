@@ -86,11 +86,15 @@ const filterDataByDate = () => {
   })
 
   // 중복된 movieNm 제거 및 audiAcc가 높은 순으로 정렬
-  const uniqueData = filtered
+  const movieName = filtered
     .reduce((acc, current) => {
+      // acc에 중복되지 않은 항목들을 저장함
+      // acc배열에서 current.movieNm과 동일한 movieNm을 가진 항목을 찾음
       const x = acc.find((item) => item.movieNm === current.movieNm)
       if (!x) {
         return acc.concat([current])
+        // 동일한 값이 있을때, 현재 값의 audiAcc가 더 큰경우,
+        // acc배열에서 해당 항목을 current로 교체
       } else if (x.audiAcc < current.audiAcc) {
         return acc.map((item) => (item.movieNm === current.movieNm ? current : item))
       } else {
@@ -99,7 +103,7 @@ const filterDataByDate = () => {
     }, [])
     .sort((a, b) => b.audiAcc - a.audiAcc)
 
-  filteredData.value = uniqueData
+  filteredData.value = movieName
 }
 
 const resetData = () => {
