@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import csvData from "@/components/MovieList/movies_2019_pages_1_to_20.csv";
+import csvData from "@/assets/data/MovieList/movies_2019_pages_1_to_20.csv";
 
 export default {
 	data() {

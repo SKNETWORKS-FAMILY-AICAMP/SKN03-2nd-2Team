@@ -51,7 +51,7 @@
 </template>
 
 <script>
-	import csvData from '@/components/WeeklyBoxOffice/0_WeeklyBoxOfficeData.csv';
+	import csvData from '@/assets/data/WeeklyBoxOffice/0_WeeklyBoxOfficeData.csv';
 
 	export default {
 		data() {
