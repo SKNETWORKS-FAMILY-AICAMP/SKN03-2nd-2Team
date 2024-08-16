@@ -1,17 +1,17 @@
 <template>
   <div>
-    <MovieList />
+    <WeeklyData />
     <MoonvieFooter />
   </div>
 </template>
 
 <script>
-import MovieList from '../components/MovieList';
+import WeeklyData from '../components/WeeklyData';
 
 export default {
   name: 'MoonvieMonth',
   components: {
-    MovieList
+    WeeklyData
   }
 };
 </script>
