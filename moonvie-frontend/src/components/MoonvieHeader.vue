@@ -18,16 +18,20 @@
       <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link to="/" class="nav-link">홈</router-link>
+            <router-link to="/" class="nav-link" style="font-weight: bold">홈</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/month" class="nav-link">월/분기별</router-link>
+            <router-link to="/month" class="nav-link" style="font-weight: bold"
+              >월/분기별</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/period" class="nav-link">기간별</router-link>
+            <router-link to="/period" class="nav-link" style="font-weight: bold"
+              >기간별</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/genre" class="nav-link">장르별</router-link>
+            <router-link to="/genre" class="nav-link" style="font-weight: bold">장르별</router-link>
           </li>
         </ul>
       </div>
