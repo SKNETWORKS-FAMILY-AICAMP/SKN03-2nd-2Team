@@ -34,15 +34,17 @@
         </button>
         <div class="dropdown-menu dropdown-menu-grid p-3" aria-labelledby="dropdownMenuButton">
           <div class="row">
-            <div v-for="header in headers" :key="header" class="col-6 col-md-4 dropdown-item">
-              <input
-                type="checkbox"
-                :id="header"
-                :value="header"
-                v-model="selectedColumns"
-                class="form-check-input me-2"
-              />
-              <label :for="header" class="form-check-label">{{ header }}</label>
+            <div v-for="header in headers" :key="header" class="col-6 col-md-4 p-0">
+              <label class="form-check-label w-100 p-2">
+                <input
+                  type="checkbox"
+                  :id="header"
+                  :value="header"
+                  v-model="selectedColumns"
+                  class="form-check-input me-2"
+                />
+                {{ header }}
+              </label>
             </div>
           </div>
         </div>
@@ -108,30 +110,11 @@ h1 {
   color: #333;
 }
 
-.date-filters {
-  display: flex;
-  justify-content: space-between;
+.dropdown {
   margin-bottom: 20px;
 }
 
-.date-filters label {
-  margin-right: 10px;
-}
-
-.date-filters input {
-  margin-right: 20px;
-}
-
-.column-selection {
-  margin-bottom: 20px;
-}
-
-.checkbox-container {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.styled-table {
+.table {
   width: 100%;
   border-collapse: collapse;
   margin: 25px 0;
@@ -139,45 +122,32 @@ h1 {
   text-align: left;
 }
 
-.styled-table th,
-.styled-table td {
+.table th,
+.table td {
   padding: 12px 15px;
 }
 
-.styled-table thead tr {
+.table thead tr {
   background-color: #009879;
   color: #ffffff;
   text-align: left;
 }
 
-.styled-table tbody tr {
+.table tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.styled-table tbody tr:nth-of-type(even) {
+.table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.styled-table tbody tr:last-of-type {
+.table tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
 
-.dropdown-menu-grid {
-  width: 100%; /* 드롭다운 메뉴를 화면 너비에 맞게 조정 */
-}
-
-.dropdown-menu-grid .row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.dropdown-menu-grid .col-6 {
-  flex: 0 0 50%;
-  max-width: 50%;
-}
-
-.dropdown-menu-grid .col-md-4 {
-  flex: 0 0 33.3333%;
-  max-width: 33.3333%;
+.form-check-label {
+  display: block;
+  width: 100%;
+  padding: 8px 15px;
 }
 </style>
