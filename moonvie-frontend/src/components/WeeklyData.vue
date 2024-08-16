@@ -60,10 +60,35 @@
         </tr>
       </tbody>
     </table>
+    <div class="mt-5">
+      <h1 class="text-center">Weekly Data</h1>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th v-for="header in defaultColumns" :key="header">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in weeklyData" :key="index">
+            <td v-for="header in defaultColumns" :key="header">{{ item[header] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import weeklyData from '@/assets/data/WeeklyData_0.json'
+
+const startDate = ref('2017-01-01')
+const endDate = ref(new Date().toISOString().split('T')[0]) // 오늘의 날짜를 기본값으로 설정
+const selectedColumns = ref(['movieNm', 'openDt', 'audiAcc', 'showRange'])
+
+const headers = Object.keys(weeklyData[0])
+const defaultColumns = ['movieNm', 'openDt', 'audiAcc', 'showRange']
+</script>
 
 <style scoped>
 .container {
