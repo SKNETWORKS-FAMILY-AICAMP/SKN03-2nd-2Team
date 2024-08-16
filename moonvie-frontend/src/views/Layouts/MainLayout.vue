@@ -18,7 +18,7 @@ import MoonvieFooter from '@/components/MoonvieFooter.vue'
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #919191;
+  background-color: #222222;
 }
 .content {
   flex: 1;

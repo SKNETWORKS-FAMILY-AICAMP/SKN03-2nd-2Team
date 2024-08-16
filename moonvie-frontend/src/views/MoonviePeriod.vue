@@ -8,7 +8,7 @@ import WeeklyData from '@/components/WeeklyData.vue'
 
 <style scoped>
 body {
-  background-color: #919191;
+  background-color: #222222;
 }
 .container {
   flex: 1;
