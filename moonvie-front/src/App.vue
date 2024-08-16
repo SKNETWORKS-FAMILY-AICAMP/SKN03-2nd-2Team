@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import MoonvieHeader from './components/Header.vue';
-import MoonvieFooter from './components/Footer.vue';
+import MoonvieHeader from './components/MoonvieHeader.vue';
+import MoonvieFooter from './components/MoonvieFooter.vue';
 
 export default {
   name: 'App',

@@ -24,8 +24,8 @@
   </template>
   
   <script>
-  import { dummyData } from './DummyData';
-  
+  import { dummyData } from '@/assets/data/DummyData.js';
+
   export default {
     name: 'MovieList',
     data() {
