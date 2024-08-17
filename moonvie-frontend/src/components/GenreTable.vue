@@ -1,48 +1,62 @@
 <template>
   <div class="container mt-4">
-    <h1 class="text-center">Genre Table</h1>
-    <!-- 컬럼 선택 드롭다운 -->
-    <div class="dropdown mb-3">
-      <button
-        class="btn btn-secondary dropdown-toggle"
-        type="button"
-        id="dropdownMenuButton"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        Select Columns
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li v-for="(header, index) in headers" :key="index" class="dropdown-item p-0">
-          <label class="form-check-label w-100 p-2">
-            <input
-              type="checkbox"
-              :value="header"
-              v-model="selectedColumns"
-              class="form-check-input"
-            />
-            {{ header }}
-          </label>
-        </li>
-      </ul>
-    </div>
+    <!-- 드롭다운 컨테이너 -->
+    <div class="d-flex justify-content-between mb-3">
+      <!-- 컬럼 선택 드롭다운 -->
+      <div class="dropdown w-50 me-2">
+        <button
+          class="btn btn-secondary dropdown-toggle w-100"
+          type="button"
+          id="dropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          style="
+            background-color: #ffc77d;
+            border-color: #ffc77d;
+            color: #4b2e2e;
+            font-weight: bold;
+          "
+        >
+          Select Columns
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+          <li v-for="(header, index) in headers" :key="index" class="dropdown-item p-0">
+            <label class="form-check-label w-100 p-2">
+              <input
+                type="checkbox"
+                :value="header"
+                v-model="selectedColumns"
+                class="form-check-input"
+              />
+              {{ header }}
+            </label>
+          </li>
+        </ul>
+      </div>
 
-    <!-- 장르 선택 드롭다운 -->
-    <div class="dropdown mb-3">
-      <button
-        class="btn btn-secondary dropdown-toggle"
-        type="button"
-        id="genreDropdownButton"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        Filter by Genre
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="genreDropdownButton">
-        <li v-for="(genre, index) in uniqueGenres" :key="index" class="dropdown-item">
-          <a class="dropdown-item" href="#" @click="filterByGenre(genre)">{{ genre }}</a>
-        </li>
-      </ul>
+      <!-- 장르 선택 드롭다운 -->
+      <div class="dropdown w-50">
+        <button
+          class="btn btn-secondary dropdown-toggle w-100"
+          type="button"
+          id="genreDropdownButton"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          style="
+            background-color: #ffc77d;
+            border-color: #ffc77d;
+            color: #4b2e2e;
+            font-weight: bold;
+          "
+        >
+          Filter by Genre
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="genreDropdownButton">
+          <li v-for="(genre, index) in uniqueGenres" :key="index" class="dropdown-item">
+            <a class="dropdown-item" href="#" @click="filterByGenre(genre)">{{ genre }}</a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <table class="table table-striped mt-3">
@@ -99,8 +113,13 @@ h1 {
   color: #333;
 }
 
-.dropdown {
-  margin-bottom: 20px;
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.me-2 {
+  margin-right: 0.5rem;
 }
 
 .table {
@@ -138,5 +157,9 @@ h1 {
   display: block;
   width: 100%;
   padding: 8px 15px;
+}
+
+.dropdown-menu {
+  width: 100%;
 }
 </style>

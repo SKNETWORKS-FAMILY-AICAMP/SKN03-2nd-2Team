@@ -13,14 +13,35 @@
     </div>
     <div class="row mb-3">
       <div class="col-md-6">
-        <button @click="filterDataByDate" class="btn btn-primary w-100">검색</button>
+        <button
+          @click="filterDataByDate"
+          class="btn btn-primary w-100"
+          style="
+            background-color: #ffc77d;
+            border-color: #ffc77d;
+            color: #4b2e2e;
+            font-weight: bold;
+          "
+        >
+          검색
+        </button>
       </div>
       <div class="col-md-6">
-        <button @click="resetData" class="btn btn-secondary w-100">초기화</button>
+        <button
+          @click="resetData"
+          class="btn btn-secondary w-100"
+          style="
+            background-color: #ffc77d;
+            border-color: #ffc77d;
+            color: #4b2e2e;
+            font-weight: bold;
+          "
+        >
+          초기화
+        </button>
       </div>
     </div>
     <div class="mb-3">
-      <h2>출력할 열 선택</h2>
       <div class="dropdown">
         <button
           class="btn btn-secondary dropdown-toggle"
@@ -29,6 +50,7 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
           data-bs-auto-close="outside"
+          style="font-weight: bold"
         >
           열 선택
         </button>
@@ -127,11 +149,15 @@ const filteredData = ref(weeklyData)
 
 h1 {
   text-align: center;
-  color: #333;
+  color: white;
 }
 
-.dropdown {
-  margin-bottom: 20px;
+.table-section {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.table-section.visible {
+  opacity: 1;
 }
 
 .table {
@@ -159,10 +185,6 @@ h1 {
 
 .table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
-}
-
-.table tbody tr:last-of-type {
-  border-bottom: 2px solid #009879;
 }
 
 .form-check-label {
