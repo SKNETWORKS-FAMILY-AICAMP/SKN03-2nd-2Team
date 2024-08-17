@@ -9,7 +9,7 @@ import os
 def fetch_movie_data(
     api_key: str,
     target_date: str,
-    region: set,
+    region: str | None,
     item_per_page="10",
     week_gb="0",
 ):
@@ -19,7 +19,7 @@ def fetch_movie_data(
         "targetDt": target_date,
         "itemPerPage": item_per_page,
         "weekGb": week_gb,
-        "wideAreaCd": region[0],
+        "wideAreaCd": region,
     }
 
     response = requests.get(url, params=params)
@@ -37,7 +37,7 @@ def get_week_start_date(year: str, week: str) -> str:
 
 
 # CSV로 저장하는 함수
-def save_csv(data, csv_file: csv, region: str) -> None:
+def save_csv(data, csv_file: csv, region: str | None) -> None:
     csv_columns = [
         "박스오피스종류",
         "상영기간",
@@ -114,24 +114,24 @@ def main():
     start_year = 2017
     end_year = 2024
     regions = [
-        (None, "전국"),
-        ("0105001", "서울시"),
-        ("0105002", "경기도"),
-        ("0105003", "강원도"),
-        ("0105004", "충청북도"),
-        ("0105005", "충청남도"),
-        ("0105006", "경상북도"),
-        ("0105007", "경상남도"),
-        ("0105008", "전라북도"),
-        ("0105009", "전라남도"),
-        ("0105010", "제주도"),
-        ("0105011", "부산시"),
-        ("0105012", "대구시"),
-        ("0105013", "대전시"),
-        ("0105014", "울산시"),
-        ("0105015", "인천시"),
-        ("0105016", "광주시"),
-        ("0105017", "세종시"),
+        None,  # 전국
+        "0105001",  # 서울시
+        "0105002",  # 경기도
+        "0105003",  # 강원도
+        "0105004",  # 충청북도
+        "0105005",  # 충청남도
+        "0105006",  # 경상북도
+        "0105007",  # 경상남도
+        "0105008",  # 전라북도
+        "0105009",  # 전라남도
+        "0105010",  # 제주도
+        "0105011",  # 부산시
+        "0105012",  # 대구시
+        "0105013",  # 대전시
+        "0105014",  # 울산시
+        "0105015",  # 인천시
+        "0105016",  # 광주시
+        "0105017",  # 세종시
     ]
 
     for region in regions:
@@ -146,12 +146,12 @@ def main():
                     # 현재 경로에 CSV 파일을 생성
                     current_directory = os.getcwd()
                     csv_file = os.path.join(
-                        current_directory, f"{region[1]}_WeeklyBoxOfficeData.csv"
+                        current_directory, f"{region}_WeeklyBoxOfficeData.csv"
                     )
 
                     # CSV 파일로 저장
                     if movie_data:
-                        save_csv(movie_data, csv_file, region[1])
+                        save_csv(movie_data, csv_file, region)
                     else:
                         print(f"No data for year {year}, week {week}")
                 except KeyError:
