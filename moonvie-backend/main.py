@@ -1,8 +1,9 @@
 from fastapi import FastAPI
+from database import Base, engine
 from routers import movie
 
-# # SQLAlchemy 모델 생성
-# Base.metadata.create_all(bind=engine)
+# SQLAlchemy 모델 생성
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 

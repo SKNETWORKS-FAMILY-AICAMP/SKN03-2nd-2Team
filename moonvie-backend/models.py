@@ -43,6 +43,7 @@ class MovieStatistics(Base):
     __tablename__ = "movie_statistics"
 
     statistics_id = Column(Integer, primary_key=True, index=True)
+    audience_cnt = Column(Integer)
     sales_amount = Column(Integer)
     screen_start = Column(Date)
     screen_end = Column(Date)
@@ -51,4 +52,3 @@ class MovieStatistics(Base):
     movie_info_id = Column(Integer, ForeignKey("movie_info.movie_info_id"))
     season_id = Column(Integer, ForeignKey("season.season_id"))
     region_code = Column(String, ForeignKey("code_table.code"))
-    audience_cnt = Column(Integer)
