@@ -35,8 +35,16 @@
               >시즌별</router-link
             >
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="seasonDropdown">
-              <li><router-link to="/season/table" class="dropdown-item">표</router-link></li>
-              <li><router-link to="/season/chart" class="dropdown-item">차트</router-link></li>
+              <li>
+                <router-link to="/season" class="dropdown-item" @click="setViewMode('table')"
+                  >표</router-link
+                >
+              </li>
+              <li>
+                <router-link to="/season" class="dropdown-item" @click="setViewMode('chart')"
+                  >차트</router-link
+                >
+              </li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -52,8 +60,16 @@
               >기간별</router-link
             >
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="periodDropdown">
-              <li><router-link to="/period/table" class="dropdown-item">표</router-link></li>
-              <li><router-link to="/period/chart" class="dropdown-item">차트</router-link></li>
+              <li>
+                <router-link to="/period" class="dropdown-item" @click="setViewMode('table')"
+                  >표</router-link
+                >
+              </li>
+              <li>
+                <router-link to="/period" class="dropdown-item" @click="setViewMode('chart')"
+                  >차트</router-link
+                >
+              </li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -69,25 +85,16 @@
               >장르별</router-link
             >
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="genreDropdown">
-              <li><router-link to="/genre/table" class="dropdown-item">표</router-link></li>
-              <li><router-link to="/genre/chart" class="dropdown-item">차트</router-link></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <router-link
-              to="/region"
-              class="nav-link dropdown-toggle"
-              style="font-weight: bold"
-              id="regionDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              @click.prevent
-              >지역별</router-link
-            >
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="regionDropdown">
-              <li><router-link to="/region/table" class="dropdown-item">표</router-link></li>
-              <li><router-link to="/region/chart" class="dropdown-item">차트</router-link></li>
+              <li>
+                <router-link to="/genre" class="dropdown-item" @click="setViewMode('table')"
+                  >표</router-link
+                >
+              </li>
+              <li>
+                <router-link to="/genre" class="dropdown-item" @click="setViewMode('chart')"
+                  >차트</router-link
+                >
+              </li>
             </ul>
           </li>
         </ul>
@@ -96,7 +103,15 @@
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import { useCounterStore } from '@/stores/counter'
+
+const store = useCounterStore()
+
+const setViewMode = (mode) => {
+  store.viewMode = mode
+}
+</script>
 
 <style scoped>
 .navbar-nav .dropdown:hover > .dropdown-menu {

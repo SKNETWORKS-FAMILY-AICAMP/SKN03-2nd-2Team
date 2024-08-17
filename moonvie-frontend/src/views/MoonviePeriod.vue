@@ -1,16 +1,16 @@
 <template>
-  <WeeklyData />
+  <div>
+    <PeriodTable v-if="isTable" />
+    <PeriodChart v-else />
+  </div>
 </template>
 
 <script setup>
-import WeeklyData from '@/components/WeeklyData.vue'
-</script>
+import { computed } from 'vue'
+import { useCounterStore } from '@/stores/counter'
+import PeriodTable from '@/components/PeriodTable.vue'
+import PeriodChart from '@/components/PeriodChart.vue'
 
-<style scoped>
-body {
-  background-color: #222222;
-}
-.container {
-  flex: 1;
-}
-</style>
+const store = useCounterStore()
+const isTable = computed(() => store.viewMode === 'table')
+</script>
