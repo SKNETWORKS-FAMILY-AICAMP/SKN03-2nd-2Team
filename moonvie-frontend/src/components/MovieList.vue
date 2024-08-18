@@ -23,18 +23,7 @@
   </div>
 </template>
 
-<script>
-import { dummyData } from "@/assets/data/DummyData.js";
-
-export default {
-  name: "MovieList",
-  data() {
-    return {
-      movies: dummyData,
-    };
-  },
-};
-</script>
+<script setup></script>
 
 <style scoped>
 .container {
