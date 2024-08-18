@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db
 
@@ -6,7 +6,7 @@ router = APIRouter()
 
 
 @router.get("/movie/top/")
-def top_movies():
+def top_movies(db: Session = Depends(get_db)):
     return {"message": "Top Movies"}
 
 
