@@ -12,6 +12,7 @@ __pycache__/
 
 # settings
 env/
+.env
 
 # Unit test / coverage reports
 htmlcov/
