@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
   <mainLayout />
 </template>
@@ -20,3 +21,14 @@ router-view {
   flex: 1;
 }
 </style>
+=======
+<script setup>
+import { RouterView } from 'vue-router'
+</script>
+
+<template>
+  <RouterView />
+</template>
+
+<style scoped></style>
+>>>>>>> origin/hotfix

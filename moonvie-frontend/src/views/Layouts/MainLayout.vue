@@ -1,26 +1,20 @@
-<template>
-  <div class="layout">
-    <MoonvieHeader />
-    <main class="content">
-      <router-view />
-    </main>
-    <MoonvieFooter />
-  </div>
-</template>
-
 <script setup>
-import MoonvieHeader from '@/components/MoonvieHeader.vue'
-import MoonvieFooter from '@/components/MoonvieFooter.vue'
+// import { ref } from 'vue'
+import TheHeader from '@/components/TheHeader.vue'
+import TheFooter from '@/components/TheFooter.vue'
 </script>
 
-<style scoped>
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #222222;
-}
-.content {
-  flex: 1;
-}
-</style>
+<template>
+  <div>
+    <header>
+      <TheHeader />
+    </header>
+    <main>
+      <RouterView />
+    </main>
+    <footer>
+      <TheFooter />
+    </footer>
+  </div>
+</template>
+<style scoped></style>
