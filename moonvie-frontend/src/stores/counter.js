@@ -1,14 +1,16 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-export const storeName = defineStore(
-  // 스토어 이름 정의
-  'yourStore',
+export const useCounterStore = defineStore(
+  'counter',
   () => {
     // 객체, 함수 선언 스코프
     const honey = ref('')
+    const viewMode = ref('table') // 기본값을 table로 설정
+
     return {
-      honey
+      honey,
+      viewMode
       // 반환값들 (위에서 생성한 객체, 함수 등등.)
     }
   },
