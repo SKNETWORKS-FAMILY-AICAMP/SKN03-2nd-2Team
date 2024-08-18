@@ -14,13 +14,9 @@ cursor = db.cursor()
 
 # CSV 파일 경로
 csv_file_path = "C:\dev\github\SKN03-2nd-2Team\moonvie-crawling\data\genre\movies_separated_genres.csv"
-genres_df = pd.read_csv(
-    "C:\dev\github\SKN03-2nd-2Team\moonvie-crawling\data\genre\genres.csv"
+directors_df = pd.read_csv(
+    "C:\dev\github\SKN03-2nd-2Team\moonvie-crawling\data\company\directors_list.csv"
 )
-# 장르 이름을 고유 코드로 매핑하기 위한 딕셔너리 생성
-genre_mapping = pd.Series(
-    genres_df["genre_id"].values, index=genres_df["대표 장르"]
-).to_dict()
 
 # CSV 파일 열기 및 데이터 읽기
 with open(csv_file_path, mode="r", encoding="utf-8-sig") as file:
@@ -28,7 +24,7 @@ with open(csv_file_path, mode="r", encoding="utf-8-sig") as file:
 
     for row in reader:
         movie_code = row["영화 코드"]
-        genre = row["영화장르"]
+        director = row["영화 감독 이름"]
 
         # 영화 코드 가져오기
         cursor.execute(
@@ -42,30 +38,39 @@ with open(csv_file_path, mode="r", encoding="utf-8-sig") as file:
             print(f"Movie '{movie_code}' not found in movie_info table.")
             continue  # 영화가 없으면 다음 행으로 넘어가기
 
-        # 장르 이름을 고유 코드로 변환
-        genre_code = genre_mapping.get(genre)
-
-        if genre_code is None:
-            print(f"Genre '{genre_code}' not found in genre mapping.")
+        if director is None:
+            print(f"'{director}' not found in director mapping.")
             continue  # 장르가 없으면 다음 행으로 넘어가기
 
         cursor.execute(
-            "SELECT movie_genre_id FROM movie_genre WHERE genre_code = %s",
-            (genre_code,),
+            "SELECT director_id FROM director WHERE director_name = %s",
+            (director,),
         )
-        genre_result = cursor.fetchone()
+        director_result = cursor.fetchone()
 
-        if genre_result:
-            movie_genre_id = genre_result[0]
+        if director_result:
+            director_id = director_result[0]
         else:
-            print(f"Genre '{genre}' not found in movie_genre table.")
+            print(f"'{director}' not found in director table.")
             continue
 
-        # movie_info_genre 테이블에 데이터 삽입
+        # 중복 여부 확인
         cursor.execute(
-            "INSERT INTO movie_info_genre (movie_info_id, movie_genre_id) VALUES (%s, %s)",
-            (movie_info_id, movie_genre_id),
+            "SELECT * FROM movie_info_director WHERE movie_info_id = %s AND director_id = %s",
+            (movie_info_id, director_id),
         )
+        existing_entry = cursor.fetchone()
+
+        if existing_entry:
+            print(
+                f"Entry for (movie_info_id: {movie_info_id}, director_id: {director_id}) already exists."
+            )
+        else:
+            # movie_info_director 테이블에 데이터 삽입
+            cursor.execute(
+                "INSERT INTO movie_info_director (movie_info_id, director_id) VALUES (%s, %s)",
+                (movie_info_id, director_id),
+            )
 
 # 변경사항 커밋
 db.commit()
