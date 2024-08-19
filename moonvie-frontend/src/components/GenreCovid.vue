@@ -11,9 +11,22 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
-
 const genreStore = useGenreStore()
 const { covid, covidGenreData } = storeToRefs(genreStore)
+
+import * as genreApi from '@/api/genre'
+
+const getCovid = () => {
+  genreApi
+    .getCovidGenre()
+    .then((res) => {
+      covidGenreData.value = res.data
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+getCovid()
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 

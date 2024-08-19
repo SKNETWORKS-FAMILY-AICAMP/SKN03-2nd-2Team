@@ -6,6 +6,7 @@ import { storeToRefs } from 'pinia'
 
 const topMovieStore = useTopMovieStore()
 const { topMovies } = storeToRefs(topMovieStore)
+console.log('topMovies :', topMovies)
 </script>
 <template>
   <article class="p-8 lg:p-16">
@@ -13,7 +14,7 @@ const { topMovies } = storeToRefs(topMovieStore)
     <TopMovieListBox />
     <figure class="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-4">
       <template v-for="(movie, idx) in topMovies" :key="movie">
-        <MovieCard :movieName="movie" :idx="idx + 1" />
+        <MovieCard :values="movie" :idx="idx + 1" />
       </template>
     </figure>
   </article>
