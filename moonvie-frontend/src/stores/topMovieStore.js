@@ -6,8 +6,76 @@ export const useTopMovieStore = defineStore(
   'topMovie',
   () => {
     const topMovies = ref([
-      { movie_name: '반도', genre: '성', open_date: '2001-07-04', audience: 100, sales: 200 },
-      { movie_name: '마녀', genre: '씨', open_date: '2001-07-03', audience: 33, sales: 300 }
+      {
+        movie_name: '반도',
+        genre: '액션',
+        open_date: '2001-07-04',
+        audience: 100400000,
+        sales: 2321452500
+      },
+      {
+        movie_name: '한양',
+        genre: '로맨스',
+        open_date: '2001-07-04',
+        audience: 99030000,
+        sales: 20867590
+      },
+      {
+        movie_name: '개망',
+        genre: '판타지',
+        open_date: '2001-07-04',
+        audience: 87000000,
+        sales: 24753274
+      },
+      {
+        movie_name: '도깨비',
+        genre: '성인물',
+        open_date: '2001-07-04',
+        audience: 76010000,
+        sales: 365461
+      },
+      {
+        movie_name: '파멸',
+        genre: '코미디',
+        open_date: '2001-07-04',
+        audience: 58520000,
+        sales: 786786789
+      },
+      {
+        movie_name: '증오',
+        genre: '코미디',
+        open_date: '2001-07-04',
+        audience: 53020000,
+        sales: 9476967
+      },
+      {
+        movie_name: '배반',
+        genre: '드라마',
+        open_date: '2001-07-04',
+        audience: 41000000,
+        sales: 4756564
+      },
+      {
+        movie_name: '경멸',
+        genre: '서부극',
+        open_date: '2001-07-04',
+        audience: 39007654,
+        sales: 4567654
+      },
+      {
+        movie_name: '남산의 부장들',
+        genre: '코미디',
+        open_date: '2001-07-04',
+        audience: 33202643,
+        sales: 1421452421
+      },
+      {
+        movie_name: '마녀',
+        genre: '다큐멘터리',
+        open_date: '2001-07-03',
+        audience: 13326534,
+        sales: 432563426
+      }
     ])
     const startDate = ref('')
     const endDate = ref('')
