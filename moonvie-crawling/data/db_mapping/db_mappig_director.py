@@ -4,10 +4,10 @@ import pandas as pd
 
 # MySQL 연결 설정
 db = pymysql.connect(
-    host="moonvie-database.ctimca2y05aw.ap-northeast-2.rds.amazonaws.com",  # MySQL 서버 주소
-    user="admin",  # MySQL 사용자명
-    password="1234qwer",  # MySQL 비밀번호
-    database="moonvieDB",  # 사용할 데이터베이스 이름
+    host="",  # MySQL 서버 주소
+    user="",  # MySQL 사용자명
+    password="",  # MySQL 비밀번호
+    database="",  # 사용할 데이터베이스 이름
 )
 
 cursor = db.cursor()
