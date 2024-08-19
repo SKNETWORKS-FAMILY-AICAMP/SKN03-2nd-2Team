@@ -7,7 +7,10 @@ class TopMovies(BaseModel):
     audience_cnt: int
     sales_amount: int
     open_date: date
-    # movie_code: int
 
-    class Config:
-        orm_mode = True
+
+# class SeasonMovies(BaseModel):
+#     season_code: int
+#     audience_cnt: int
+#     sales_amount: int
+#     open_date: date

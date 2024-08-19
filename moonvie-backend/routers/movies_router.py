@@ -23,9 +23,17 @@ async def read_top_movies(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/season/")
-async def read_season_rank(db: Session = Depends(get_db)):
-    return {"message": "Season"}
+# @router.get("/season/", response_model=List[schemas.SeasonMovies])
+# async def read_season_rank(
+#     season: 100,
+#     db: Session = Depends(get_db),
+# ):
+#     try:
+#         limit = 10
+#         movies = crud.get_season_movies(db, season, limit)
+#         return movies
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/region/")
