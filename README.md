@@ -82,12 +82,13 @@
 
 
 
-### Ⅲ. 다이어그램
+### Ⅲ. Diagram
 
 **1. ER Diagram**
+   
 ![image](https://github.com/user-attachments/assets/d707eb79-3319-4626-ad81-1f1da990278a)
 
-**2. 아키텍처 다이어그램**
+**2. Architecture**
    
 ![architecture drawio](https://github.com/user-attachments/assets/0072009a-97c7-4bb3-bcfa-69865ad19b93)
 
@@ -146,28 +147,33 @@
 ### VI. 오류 해결 과정
 
 
-### VII. 기술 스택
-**언어**
+## VII. 기술 스택
+
 <div style="display: flex; gap: 10px;">
+<h3>Language</h3>
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" style="height: 40px; object-fit: contain;">
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" style="height: 40px; object-fit: contain;">
 </div>      
 
-   
-**프레임워크**
+
 <div style="display: flex; gap: 10px;">
+<h3>Frontend</h3>
   <img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js" style="height: 40px; object-fit: contain;">
   <img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=flat-square&logo=Tailwind%20CSS&logoColor=white" alt="Tailwind CSS" style="height: 40px; object-fit: contain;">
 </div>      
     
-   
-**백앤드**   
-<img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django" style="height: 40px; object-fit: contain;">
 
-   
-**데이터**   
-<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" style="height: 40px; object-fit: contain;">
+<div style="display: flex; gap: 10px;">
+<h3>Backend</h3>
+   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white" alt="Django" style="height: 40px; object-fit: contain;">
+</div>  
 
-      
-**서버**   
-<img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white" alt="Amazon AWS" style="height: 40px; object-fit: contain;">
+<div style="display: flex; gap: 10px;">
+<h3>Database</h3>
+   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" style="height: 40px; object-fit: contain;">
+</div>  
+
+<div style="display: flex; gap: 10px;">
+<h3>Deployment</h3>
+   <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white" alt="Amazon AWS" style="height: 40px; object-fit: contain;">
+</div>  
