@@ -93,12 +93,8 @@
 ![architecture drawio](https://github.com/user-attachments/assets/0072009a-97c7-4bb3-bcfa-69865ad19b93)
 
 
-## Ⅳ. 실제동작화면
-<img width="566" alt="image" src="https://github.com/user-attachments/assets/0ab2e7a3-3664-414e-b585-3e94f4031736">
 
-
-
-## Ⅴ. 컨벤션 규칙
+## Ⅳ. 컨벤션 규칙
 ### 1. Language-specific Default Style Extention
 
 **Python**
@@ -144,23 +140,132 @@
 
 
 
-## VI. 오류 해결 과정
+## Ⅴ. 오류 해결 과정
+- Mysql user
+```
+use mysql;
 
-## VII. 프로젝트 한줄평
+select host, user, authentication_string from user;
+
+CREATE USER 'moonvie'@'%'
+	IDENTIFIED by 'moonvie0816@';
+
+create user 'root'@'%'
+	identified by 'asdf';
+
+GRANT All privileges ON moonvieDB.* TO 'moonvie'@'%';
+drop user 'root'@'%';
+
+flush privileges; # 중요
+```
+---
+- db data insert 과정 중 data type 문제 발생
+        ![image](https://github.com/user-attachments/assets/11cba768-c112-4a6a-a83d-cc37654ef3bf)
+   -  누적 매출액 → int 범위 벗어나는 경우 발생
+ 
+---
+- 에러명
+
+> File "C:\projects\SKN03-2nd-2Team\moonvie-backend\.venv\Lib\site-packages\drf_yasg\**init**.py", line 2, in <module>
+from pkg_resources import DistributionNotFound, get_distribution
+ModuleNotFoundError: No module named 'pkg_resources'
+
+- 에러 설명
+```
+  drf_yasg python라이브러리를 사용하려고 했는데 해당 에러가 발생하였다.
+drf_yasg가 setuptools모듈을 사용하고 있는데 해당 모듈이 없어서 발생하는 에러이다.
+```
+
+- 해결 방법
+   - setuptools를 다운받으면 간단하게 해결된다.
+```
+ pip install setuptools
+```
+---
+
+- wordcloud가 화면 오른쪽에 치우쳐져 있고 중간으로 가지 않음
+   - wordcloud가 있는 div의 class를 wordcloud로 설정하고 CSS를 통해 정렬함     
+---
+- wordcloud가 json 데이터를 받아오는 속도가 느리고 데이터가 많아지면 출력되지 않음
+    - vuewordcloud 에서 echarts wordcloud를 바꿔서 사용하니까 데이터가 거의 바로 출력됨.
+---
+- 데이터 전처리 과정에서 ‘상영월’ 기준으로 중복된 데이터를 없애려고 했는데 데이터 대부분이 사라짐
+    - 기준이 되는 컬럼을 ‘영화 코드’와 ‘상영월’을 기준으로 해서 정상적으로 처리함
+---
+- frontend 충돌 : 프론트엔드 작업 중 서로 config를 상의하지 않고 추가해서 commit 하는 과정에서 충돌이 일어남
+    - 하나의 config에 맞춰 한쪽 코드를 새로 작성하여 해결함
+        
+        1. vue.config.js 설정 통일
+        
+        2. GenreTable.vue의 csv load관련 코드 수정
+        
+        3. MoonvieGenre.vue와 GenreTable.vue 연결
+---
+- 데이터를 정렬했을 때, 중복된 데이터들이 나타나는 오류가 발생함.
+![image](https://github.com/user-attachments/assets/19dd6cc4-902c-4ee4-8a43-f1ffdb98c577)
+   - 해당 데이터를 필터링하여, 데이터의 중복을 막음
+   - 데이터가 중복 되는 이유
+       - 해당 데이터셋이 각 주마다 박스오피스를 가져오기 때문에, 특정 영화가 연속적으로 박스오피스에 오를 경우 중복되는 데이터가 발생함
+   - 해결 방법
+      1. 영화의 이름을 담은 MovieNm변수를 생성
+      2. 누적 관객수를 담은 audiAcc 변수를 생성
+      3. MovieNm와 audiAcc를 담은 acc배열을 생성
+      4. acc배열에서 current.movieNm와 동일한 movieNm을 가진 항목을 찾음
+          1. 동일한 값이 없을 경우, acc에 current값을 return
+          2. 동일한 값이 존재할때
+              1. 현재 current.audiAcc의 값이 높을 경우 acc의 값을 current로 대체함
+              2. acc의 auidAcc가 높을경우 acc를 리턴함
+```
+  // 중복된 movieNm 제거 및 audiAcc가 높은 순으로 정렬
+  const uniqueData = filtered
+    .reduce((acc, current) => {
+      const x = acc.find((item) => item.movieNm === current.movieNm)
+      if (!x) {
+        return acc.concat([current])
+      } else if (x.audiAcc < current.audiAcc) {
+        return acc.map((item) => (item.movieNm === current.movieNm ? current : item))
+      } else {
+        return acc
+      }
+    }, [])
+    .sort((a, b) => b.audiAcc - a.audiAcc)
+
+  filteredData.value = uniqueData
+}
+```
+   - 결과
+       - 중복되는 데이터가 삭제되고 정상적으로 데이터가 출력됨
+---
+- cli에서 vite로 마이그레이션
+    - 기존 cli에 비하여 vite의 장점이 많으므로, cli에서 vite로 마이그레이션을 함
+    - 빠른 개발 서버 시작: Vite는 네이티브 ES 모듈을 사용하여 브라우저에서 직접 로드하기 때문에 개발 서버 시작 속도가 cli에 비해 빠름.
+    - 빠른 빌드 속도: Vite는 ES 모듈을 기반으로 하기 때문에 초기 빌드와 재빌드 속도가 cli에 비해 빠름
+    - 효율적인 핫 모듈 교체(HMR): Vite는 모듈의 변화가 있을 때 변경된 부분만 빠르게 갱신하는 HMR을 제공함
+    - 간편한 설정 및 커스터마이징: Vite는 설정 파일(vite.config.js/ts)을 기본적으로 제공하며, 프로젝트 요구사항에 맞게 쉽게 커스터마이징할 수 있음.
+- Bootstrap 인식 에러
+    - cli에서 vite로 마이그레이션 하는 과정에서, bootstrap패키지가 package.json에서 누락되어서, 마이그레이션된 frontend에서 정상적으로 실행되지 않는 에러 발생
+    - 해결 과정
+        - package.json의 dependencies에 bootstrap추가
+   - 이후 npm install을 실행하여 bootstrap을 설치 후 실행
+   - 결과
+       - 정상적으로 페이지가 출력됨
+---
+
+## VI. 프로젝트 한줄평
 - **문희선**
-   
-- **박중헌**
-   
-- **김재성**
+설계의 중요성과 더불어 개인적인 역량에 대해 깊이 반성하는 시간이었습니다. 이전보다 나날이 발전하도록 노력해야겠다는 생각이 간절히 들었습니다.   
+- **박중헌**   
+설계의 중요함과 팀원간의 역할 배분에 대해 고찰을 하는 시간을 가졌고 일정 관리 및 팀원관리, 소통에 대해 뼈져리게 느꼈습니다.   
+- **김재성**   
 다음엔 꼭 1인분 몫은 해야겠다고 생각합니다! 팀원들 고생 많았습니다!
-- **진윤화**
+- **진윤화**   
 협업시 소통의 중요성과 충돌관리의 중요성을 깨닫고, 일정 관리의 중요성을 느꼈으며, 프로그램 설계 시 구조의 중요성을 배웠습니다. 또한, 코드 작성 시 가독성을 높이는 것이 중요하다는 것을 깨달았고, Vue.js 사용 시 CLI보다 Vite가 여러 면에서 장점이 많다는 것을 알게 되었습니다.    
-- **송영빈**
+- **송영빈**   
 협업 시 git 사용법이 조금 더 익숙해지는 기회가 되었고 부족한 점이 많다는 걸 이번 프로젝트를 통해 더욱 느끼게 되었습니다. 프론트엔드, 데이터 전처리, MySQL 등등 배운점이 많기도 한 프로젝트였습니다.
 
 
 
-## VIII. 기술 스택
+## VII. 기술 스택
 
 <div style="display: flex; gap: 10px;">
 <h3>Language</h3>
