@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import {
   Listbox,
   ListboxButton,
@@ -8,7 +8,23 @@ import {
   ListboxOptions
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import * as movieApi from '@/api/movie'
+import { useTopMovieStore } from '@/stores/topMovieStore'
+import { storeToRefs } from 'pinia'
 
+const topMovieStore = useTopMovieStore()
+const { topMovies } = storeToRefs(topMovieStore)
+
+const getRegion = (req) => {
+  movieApi
+    .getRegionMovies(req)
+    .then((res) => {
+      topMovies.value = res.data
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
 const regions = [
   { id: 0, name: '전국' },
   { id: 1, name: '서울시' },
@@ -31,6 +47,13 @@ const regions = [
 ]
 
 const selected = ref(regions[0])
+
+const fetchRegionMovies = () => {
+  getRegion(selected.value.id)
+}
+onMounted(() => {
+  fetchRegionMovies()
+})
 </script>
 
 <template>
@@ -61,6 +84,7 @@ const selected = ref(regions[0])
               :key="region.id"
               :value="region"
               v-slot="{ active, selected }"
+              @click="fetchRegionMovies"
             >
               <li
                 :class="[

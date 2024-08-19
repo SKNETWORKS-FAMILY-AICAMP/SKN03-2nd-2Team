@@ -11,6 +11,19 @@ import {
   LinearScale,
   PointElement
 } from 'chart.js'
+import * as covidApi from '@/api/covid'
+
+const getMoney = (req) => {
+  covidApi
+    .getMoneyCovid(req)
+    .then((res) => {
+      covidData.value = res.data
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+getMoney()
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement)
 
@@ -25,6 +38,7 @@ const generateLabels = () => {
   return labels
 }
 
+const covidData = ref([])
 const labels = generateLabels()
 const startRedIndex = labels.indexOf('2020-01')
 const endRedIndex = labels.indexOf('2022-08')
@@ -41,11 +55,7 @@ const chartData = ref({
         index >= startRedIndex && index <= endRedIndex ? '#FF0000' : '#FFC77D'
       ),
       borderWidth: 2,
-      data: [
-        1, 4, 3, 2, 1, 2, 3, 2, 4, 2, 5, 2, 4, 3, 4, 2, 3, 4, 3, 2, 5, 3, 2, 4, 3, 2, 4, 3, 4, 2, 3,
-        4, 5, 3, 2, 4, 3, 2, 4, 3, 4, 2, 3, 4, 5, 3, 2, 4, 3, 2, 4, 3, 4, 2, 3, 4, 5, 3, 2, 4, 3, 2,
-        4, 3, 4, 2, 3, 4, 5, 3, 2, 4, 3, 2, 4, 3, 4, 2, 3, 4, 5, 3, 2, 4, 3, 2, 4, 3, 4, 2, 3, 4
-      ]
+      data: covidData.value
     }
   ]
 })

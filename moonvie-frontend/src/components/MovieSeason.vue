@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import {
   Listbox,
   ListboxButton,
@@ -8,6 +8,23 @@ import {
   ListboxOptions
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import * as movieApi from '@/api/movie'
+import { useTopMovieStore } from '@/stores/topMovieStore'
+import { storeToRefs } from 'pinia'
+
+const topMovieStore = useTopMovieStore()
+const { topMovies } = storeToRefs(topMovieStore)
+
+const getSeason = (req) => {
+  movieApi
+    .getSeasonMovies(req)
+    .then((res) => {
+      topMovies.value = res.data
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
 
 const seasons = [
   { id: 0, name: '봄' },
@@ -20,6 +37,13 @@ const seasons = [
 ]
 
 const selected = ref(seasons[0])
+
+const fetchSeasonMovies = () => {
+  getSeason(selected.value.id)
+}
+onMounted(() => {
+  fetchSeasonMovies()
+})
 </script>
 
 <template>
@@ -50,6 +74,7 @@ const selected = ref(seasons[0])
               :key="season.id"
               :value="season"
               v-slot="{ active, selected }"
+              @click="fetchSeasonMovies"
             >
               <li
                 :class="[

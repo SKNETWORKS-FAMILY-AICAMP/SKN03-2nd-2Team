@@ -102,7 +102,7 @@ const people = [
           콘텐츠를 소비하는 방식으로 전환되었습니다. 그러나 여전히 상업적으로 살아남는 영화는
           존재합니다. 문비(Moonvie)는 코로나19 팬데믹 이전 이후 상업적으로 성공한 영화에 대한
           데이터를 분석함으로써, 영화 제작자들이 팬데믹 이후 변화된 환경에서 경쟁력을 갖출 수 있도록
-          인사이트를 제공하고자 합니다.
+          인사이트를 제공하고자 합니다. 는 개뿔 시원하게 조졌습니다 ★.
         </p>
         <div class="mt-10 flex items-center gap-x-6">
           <a
@@ -120,7 +120,7 @@ const people = [
       >
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
           <img
-            src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
+            src="@/assets/gg.jpg"
             alt="App screenshot"
             width="2432"
             height="1442"
@@ -137,7 +137,7 @@ const people = [
         <p class="mt-6 leading-8 text-gray-300">
           나, 문희선. 조금 얼빠지고 울보인 보통 여자아이였는데, 우연히 악당(박중헌)을 만나서 정의의
           아군 세일러 문이 되어버렸어. 대망의 미소녀와 악당 데스 버스터즈가 선보이는 쾌감 액션 영화
-          프로젝트 드디어 등장!!
+          프로젝트 드디어 등장!!과 동시에 퇴장~!
         </p>
       </div>
       <ul

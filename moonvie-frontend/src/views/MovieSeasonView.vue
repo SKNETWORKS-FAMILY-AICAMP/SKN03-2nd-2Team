@@ -14,7 +14,7 @@ const { topMovies } = storeToRefs(topMovieStore)
     <MovieSeason />
     <figure class="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-4">
       <template v-for="(movie, idx) in topMovies" :key="movie">
-        <MovieCard :movieName="movie" :idx="idx + 1" />
+        <MovieCard :values="movie" :idx="idx + 1" />
       </template>
     </figure>
   </article>

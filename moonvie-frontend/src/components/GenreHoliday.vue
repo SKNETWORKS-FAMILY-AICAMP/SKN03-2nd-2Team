@@ -1,17 +1,3 @@
-<template>
-  <div>
-    <h2 class="text-3xl font-bold mb-8 text-white">연휴별 인기 장르</h2>
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-      <div v-for="holiday in holidays" :key="holiday" class="bg-gray-800 rounded-lg shadow-md p-6">
-        <h3 class="text-xl font-semibold mb-4 text-center text-white">{{ holiday }}</h3>
-        <div class="w-full h-screen">
-          <Bar :data="getChartData(holiday)" :options="chartOptions" />
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useGenreStore } from '@/stores/genreStore'
@@ -28,6 +14,20 @@ import {
 
 const genreStore = useGenreStore()
 const { holidays, holidaysGenreData } = storeToRefs(genreStore)
+
+import * as genreApi from '@/api/genre'
+
+const getHolidays = () => {
+  genreApi
+    .getHolidayGenre()
+    .then((res) => {
+      holidaysGenreData.value = res.data
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+getHolidays()
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -67,3 +67,16 @@ const getChartData = (season) => ({
   ]
 })
 </script>
+<template>
+  <div>
+    <h2 class="text-3xl font-bold mb-8 text-white">연휴별 인기 장르</h2>
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+      <div v-for="holiday in holidays" :key="holiday" class="bg-gray-800 rounded-lg shadow-md p-6">
+        <h3 class="text-xl font-semibold mb-4 text-center text-white">{{ holiday }}</h3>
+        <div class="w-full h-screen">
+          <Bar :data="getChartData(holiday)" :options="chartOptions" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
