@@ -84,10 +84,11 @@
 
 ### Ⅲ. 다이어그램
 
-## 1. ER Diagram
+**1. ER Diagram**
 ![image](https://github.com/user-attachments/assets/d707eb79-3319-4626-ad81-1f1da990278a)
 
-## 2. 아키텍처 다이어그램
+**2. 아키텍처 다이어그램**
+   
 ![architecture drawio](https://github.com/user-attachments/assets/0072009a-97c7-4bb3-bcfa-69865ad19b93)
 
 
